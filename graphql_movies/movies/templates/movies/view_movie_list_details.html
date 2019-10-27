@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>View movie list details</title>
+  </head>
+  <body>
+
+<!--
+  {% for item ,value in movie_name_dict.items %}
+     <ul >
+       <li> hi{{value}}</li>
+     </ul>
+  {% endfor %}
+-->
+<br><br>
+<div class="container-fluid">
+<div class="row"><div class="col-lg-6">
+
+    {% for item in movie_name_list %}
+     <ul id="">
+       <li>{{ item }}</li>
+     </ul>
+     {% endfor %}
+
+
+</div><div class="col-lg-6"><h2> Recommended list</h2>{% for item in y %} <b>{{item}}</b><br> {% endfor %} </div> </div>
+    <!--{% for item in movie_name_list %}
+     <ul id="">
+       <li>{{ item }}</li>
+     </ul>
+     {% endfor %}-->
+<!--
+<form method='post' > {% csrf_token %}
+<input type="hidden" name="created_list" id="created_list_items">
+<button type="submit"  onclick="myFunction()" class="btn btn-primary">Add new items in list</button>
+</form>-->
+
+
+</div>
+<br><br>
+<h2>Newly added movies will be shown below on adding </h2>
+<div class="container-fluid">
+
+    <ul id="add_list">
+
+     </ul>
+
+
+ <form method='post' > {% csrf_token %}
+<input type="hidden" name="created_list" id="created_list_items">
+<button type="submit"  onclick="myFunction()" class="btn btn-primary">Add new items in list</button>
+</form>
+
+</div>
+
+
+
+<!--
+     {% for item in movie_name_list %}
+     <ul id="add_list">
+       <li>{{ item }}</li>
+     </ul>
+     {% endfor %}
+<form method='post' > {% csrf_token %}
+<input type="hidden" name="created_list" id="created_list_items">
+<button type="submit"  onclick="myFunction()" class="btn btn-primary">Add new items in list</button>
+</form>-->
+<br><br>
+<div class="container-fluid">
+<h2>ADD other movies available in the list  </h2>
+    {% for movie in movie_names  %}
+<ul>
+  <li id="mov{{movie.id}} " > {{movie.title}} </li> <span id="sp{{movie.id}}"> <button class="add" id="{{movie.id}} ">Add</button> </span>
+</ul>
+
+{% endfor %}
+
+
+</div>
+
+  <!--{% for movie in movie_names  %}
+<ul>
+  <li id="mov{{movie.id}} " > {{movie.title}} </li> <span id="sp{{movie.id}}"> <button class="add" id="{{movie.id}} ">Add</button> </span>
+</ul>
+
+{% endfor %}-->
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+ <script>
+
+//localStorage.clear();
+if(localStorage.getItem('mov_list')==null)
+{
+ //localStorage.clear();
+  var mov_list ={} ;
+
+  copylist2(mov_list)
+}
+
+else
+{
+
+
+
+mov_list =JSON.parse(localStorage.getItem('mov_list')) ;         // parsing inorder to convert into javascript object
+
+showlist1(mov_list);
+
+}
+
+
+
+$('.add').click(function(){
+
+
+ console.log("clicked");
+ var idstr = this.id.toString();
+
+ title= document.getElementById('mov'+idstr).innerHTML;
+if(mov_list[idstr ]==undefined){
+  mov_list[idstr ]=title;
+show_title(mov_list,idstr);
+} else{ alert("already defined");}
+
+//document.getElementById('sp'+idstr).innerHTML= "ADDED" ;
+localStorage.setItem('mov_list',JSON.stringify(mov_list));
+console.log(mov_list)
+
+});
+
+
+
+
+function copylist2(mov_list){
+
+
+
+   {% for item ,value in movie_name_dict.items %}
+
+       mov_list[{{item}}]="{{value}}";
+
+  {% endfor %}
+
+
+
+}
+
+
+function show_title(mov_list,idstr){
+
+
+
+  console.log("inshow")
+
+     console.log(idstr);
+
+
+    var str = "<li>" + mov_list[idstr] +"</li>(NEW)"
+
+    $("#add_list").append(str);
+
+        //$("#add_list").append('<li>+mov_list[idstr]+</li>');
+     //document.getElementById('').innerHTML = "<li>" +mov_list[idstr]+ " </li> "
+
+
+
+
+}
+
+function showlist1(mov_list){
+
+
+//var str = ""; "<li>" + mov_list[idstr] +"</li>"
+
+ //   $("#add_list").append(str);
+
+ for(var item in mov_list){
+
+
+
+
+    str= "<li>" + mov_list[item] +"</li>"
+    $("#add_list").append(str);
+
+
+
+ }
+
+}
+
+
+
+function myFunction(){
+$('#created_list_items').val(JSON.stringify(mov_list));
+localStorage.clear();
+//location.reload(forceGet=true);
+}
+
+
+
+//$('#created_list_items').val(JSON.stringify(mov_list));
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

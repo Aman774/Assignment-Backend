@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Movies </title>
+</head>
+
+
+
+<body>
+
+<h1>List of all available films </h1>
+
+<br>
+{% for movie in movielist_final  %}
+
+<a href="/movies/movie_details/{{movie.id}}"><h3> {{movie.title}} </h3></a>
+
+{% endfor %}
+
+
+
+
+<script>
+/*
+if(localStorage.getItem('mov_list')==null)
+{
+  var mov_list ={} ;
+}
+
+else
+{
+
+
+
+mov_list =JSON.parse(localStorage.getItem('mov_list')) ;         // parsing inorder to convert into javascript object
+showlist1(mov_list);
+
+}
+
+
+
+$('.add').click(function(){
+
+ console.log("clicked");
+ var idstr = this.id.toString();
+
+ title= document.getElementById('mov'+idstr).innerHTML;
+
+  mov_list[idstr ]=title;
+show_title(mov_list,idstr);
+
+
+//document.getElementById('sp'+idstr).innerHTML= "ADDED" ;
+localStorage.setItem('mov_list',JSON.stringify(mov_list));
+console.log(mov_list)
+
+});
+
+
+
+function show_title(mov_list,idstr){
+
+
+
+  console.log("inshow")
+
+     console.log(idstr);
+
+
+    var str = "<li>" + mov_list[idstr] +"</li>"
+
+    $("#add_list").append(str);
+
+        //$("#add_list").append('<li>+mov_list[idstr]+</li>');
+     //document.getElementById('').innerHTML = "<li>" +mov_list[idstr]+ " </li> "
+
+
+
+
+}
+
+function showlist1(mov_list){
+
+
+//var str = ""; "<li>" + mov_list[idstr] +"</li>"
+
+ //   $("#add_list").append(str);
+
+ for(var item in mov_list){
+
+    str= "<li>" + mov_list[item] +"</li>"
+    $("#add_list").append(str);
+
+
+ }
+
+}
+
+
+
+function myfunction(){
+$('#created_list_items').val(JSON.stringify(mov_list));
+localStorage.clear();
+}
+
+
+
+//$('#created_list_items').val(JSON.stringify(mov_list));
+
+
+
+*/
+
+
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
